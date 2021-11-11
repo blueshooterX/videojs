@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <?!= HtmlService.createHtmlOutputFromFile('markercss').getContent(); ?>
+  </head>
+  <body>
+    <video id="demo" controls class="video-js vjs-default-skin" poster="https://drive.google.com/uc?id=1wys8YEdALmM75GEP32ZLlDNZLC15avnx">
+        <!-- source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4" -->
+        <source src="https://drive.google.com/uc?id=1ktosfyDsuOw8hp5HyQxCc2vpr90GlFAu" type="video/mp4">
+    </video>
+    
+    <style>
+    .special-blue{
+    background-color: #4949d8 !important;
+    }
+    </style>
+    
+    <script>
+     window.onload = function() {
+        var player = videojs('demo');
+
+        player.markers({
+        markerStyle: {
+            'width':'9px',
+            'border-radius': '40%',
+            'background-color': 'orange'
+        },
+        markerTip:{
+            display: true,
+            text: function(marker) {
+                return "マーカー: "+ marker.text;
+            }
+        },
+        breakOverlay:{
+            display: true,
+            displayTime: 4,
+            style:{
+                'width':'100%',
+                'height': '30%',
+                'background-color': 'rgba(10,10,10,0.6)',
+                'color': 'white',
+                'font-size': '16px'
+            },
+            text: function(marker) {
+                return "チャプター: " + marker.overlayText;
+            },
+        },
+        markers: [
+            {time: 9.5, text: "その１", overlayText: "1", class: "special-blue"},
+            {time: 16,  text: "その２", overlayText: "2"},
+            {time: 23.6,text: "その３", overlayText: "3"},
+            {time: 28,  text: "その４", overlayText: "4"}
+        ]
+        });
+    }
+    </script>
+    <?!= HtmlService.createHtmlOutputFromFile('markerjs').getContent(); ?>
+  </body>
+</html>
